@@ -6,7 +6,7 @@ const Transaction = ({transaction}) => {
       <td>{transaction.posted_at}</td>
       <td>{transaction.description}</td>
       <td>{transaction.category}</td>
-      <td>{transaction.amount}</td>
+      <td>${transaction.amount/100.00}</td>
     </tr>
   )
 }

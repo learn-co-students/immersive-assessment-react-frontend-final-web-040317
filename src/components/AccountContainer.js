@@ -38,7 +38,7 @@ class AccountContainer extends Component {
   }
 
   transactionsTotal(transactions){
-    let temp = transactions.map(t => parseInt(t.amount))
+    let temp = transactions.map(t => t.amount)
     return temp.reduce(function(t, val){
       return t + val
     }, 0)
@@ -46,7 +46,6 @@ class AccountContainer extends Component {
 
   render() {
     const displayedTransactions = this.filteredTransactions(this.state.activeCategory, this.state.transactions)
-    console.log(this.transactionsTotal(displayedTransactions))
 
     return (
       <div className="ui grid container">
