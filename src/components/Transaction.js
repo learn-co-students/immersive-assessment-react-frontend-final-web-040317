@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Transaction = (props) => {
-  const transaction = props.transaction
+  const { id, posted_at, description, category, amount } = props.transaction
   return (
-    <tr key={transaction.id}>
-      <td>{transaction.posted_at}</td>
-      <td>{transaction.description}</td>
-      <td>{transaction.category}</td>
-      <td>{transaction.amount}</td>
+    <tr key={id}>
+      <td>{posted_at}</td>
+      <td><Link to={`/transactions/${id}`}>{description}</Link></td>
+      <td>{category}</td>
+      <td>{amount}</td>
     </tr>
   )
 }
