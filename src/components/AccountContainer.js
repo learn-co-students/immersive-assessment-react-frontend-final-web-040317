@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import CategorySelector from './CategorySelector'
+import fetchTransactions from '../api/index'
 
 
 class AccountContainer extends Component {
@@ -42,8 +43,22 @@ class AccountContainer extends Component {
     }
   }
 
-  handleChange() {
-    //... your code here
+  handleChange(event) {
+    this.setState({
+      activeCategory: event.target.value
+
+    })
+  }
+
+
+
+  componentDidMount(){
+    fetchTransactions()
+
+    .then(transactions => this.setState({
+      transactions: transactions
+    }) )
+    .then(console.log)
   }
 
   render() {
@@ -54,11 +69,12 @@ class AccountContainer extends Component {
 
         <CategorySelector
           activeCategory={ this.state.activeCategory }
-          handleChange={ "...your code here" }
+          handleChange={ this.handleChange.bind(this) }
         />
 
         <TransactionsList
           transactions={ displayedTransactions }
+          activeCategory ={this.state.activeCategory}
         />
 
       </div>
