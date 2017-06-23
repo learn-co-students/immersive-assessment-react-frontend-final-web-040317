@@ -40,10 +40,27 @@ class AccountContainer extends Component {
       ],
       activeCategory: "All"
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.filteredTransactions = this.filteredTransactions.bind(this);
   }
 
-  handleChange() {
-    //... your code here
+  componentDidMount() {
+    fetch('https://boiling-brook-94902.herokuapp.com/transactions')
+    .then(resp => resp.json())
+    .then(transactions => this.setState({ transactions }))
+  }
+
+  handleChange(category) {
+    this.setState({activeCategory: category})
+  }
+
+  filteredTransactions() {
+    if (this.state.activeCategory === 'All') {
+      return this.state.transactions
+    }
+
+    return this.state.transactions.filter(transaction => transaction.category === this.state.activeCategory)
   }
 
   render() {
@@ -54,11 +71,12 @@ class AccountContainer extends Component {
 
         <CategorySelector
           activeCategory={ this.state.activeCategory }
-          handleChange={ "...your code here" }
+          handleChange={this.handleChange}
         />
 
         <TransactionsList
           transactions={ displayedTransactions }
+          checked={this.state.activeCategory}
         />
 
       </div>

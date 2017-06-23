@@ -1,22 +1,38 @@
 import React from 'react'
 
-const CategoryField = (props) => {
-  const { category, checked }  = props
+class CategoryField extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className=" four wide field">
-      <div className="ui radio checkbox">
+    this.state = {
+      chosen: this.props.category
+    }
 
-        <input
-          type="radio"
-          name="category"
-          checked={ checked }
-        />
-        <label>{ category }</label>
+    this.handleChange = this.handleChange.bind(this)
+  }
 
+  handleChange(e) {
+    this.setState({ chosen: e.target.name})
+    this.props.handleChange(this.state.chosen)
+  }
+  render() {
+    return (
+      <div className=" four wide field">
+        <div className="ui radio checkbox">
+
+          <input
+            type="radio"
+            name="category"
+            checked={ this.props.checked }
+            onChange={ this.handleChange }
+
+            />
+          <label>{ this.props.category }</label>
+
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default CategoryField
