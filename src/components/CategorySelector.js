@@ -14,6 +14,8 @@ const CategorySelector = (props) => {
           key={ i }
           checked={ checked }
           category={ category }
+          handleChange={props.handleChange}
+          value={category}
         />
       )
     }
