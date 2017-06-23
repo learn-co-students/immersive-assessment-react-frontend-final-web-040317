@@ -33,10 +33,18 @@ After cloning down the project
 
 You can approach this any way you would like but below is a reasonable approach to this challenge. If you are not sure where or how to begin, follow the steps here.
 
+Done
+
 1) Get the list of Transactions to display on the page given the default state data
 2) After that is working, replace that data with the JSON you fetch from this url [https://boiling-brook-94902.herokuapp.com/transactions](https://boiling-brook-94902.herokuapp.com/transactions). It will be in the same format as the  default data.
 3) Now that you are using the real data, ensure that the user selecting a radio button changes the state of the `activeCategory`.
 4) Figure out how to render only the transactions in which the category matches the active category, or if the active category is `'All'`, render everything.
+
+#################################################################
+
+
+To-do - NADA coz we RULE.
+
 
 ## Criteria
 
