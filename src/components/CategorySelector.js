@@ -2,7 +2,7 @@ import React from 'react'
 import CategoryField from './CategoryField'
 import categories from '../categories'
 
-const CategorySelector = (props) => {
+const CategorySelector = (props) => {  //handleSubmit activeCategory
 
   const categoryFields = categories.map(
     (category, i) => {
@@ -14,6 +14,7 @@ const CategorySelector = (props) => {
           key={ i }
           checked={ checked }
           category={ category }
+          handleChange={props.handleChange}
         />
       )
     }

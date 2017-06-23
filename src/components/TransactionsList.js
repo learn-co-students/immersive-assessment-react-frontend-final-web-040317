@@ -1,6 +1,7 @@
 import React from 'react'
+import Transaction from './Transaction'
 
-const TransactionsList = () => {
+const TransactionsList = ({ transactions, checked }) => {
 
   return (
     <table className="ui celled striped padded table">
@@ -28,7 +29,14 @@ const TransactionsList = () => {
           </th>
         </tr>
 
-        {/* "... your code here..." */}
+        {transactions.map((t, idx) => {
+          if (checked === 'All') {
+            return <Transaction key={idx}transaction={t} />
+          } else if (t.category === checked){
+            return <Transaction key={idx} transaction={t} />
+          }
+          return null
+        })}
 
       </tbody>
     </table>
