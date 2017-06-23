@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import CategorySelector from './CategorySelector'
+import Search from './Search'
 
 
 class AccountContainer extends Component {
@@ -8,43 +9,42 @@ class AccountContainer extends Component {
     super()
 
     this.state = {
-      transactions: [
-        {
-          id: 1,
-          posted_at: "2017-02-28 11:00:00",
-          description: "Leather Pants, Gap co.",
-          category: "Fashion",
-          amount: -20000
-        },
-        {
-          id: 2,
-          posted_at: "2017-02-29 10:30:00",
-          description: "Paycheck from Bob's Burgers",
-          category: "Income",
-          amount: 100000
-        },
-        {
-          id: 3,
-          posted_at: "2017-05-24 10:53:00",
-          description: "'Pair Programming Illuminated' by Laurie Williams and Robert Kessler",
-          category: "Entertainment",
-          amount: -1498
-        },
-        {
-          id: 4,
-          posted_at: "2017-05-24 08:52:00",
-          description: "Medium Iced Cold Brew, Gregory's Coffee",
-          category: "Food",
-          amount: -365
-        }
-      ],
-      activeCategory: "All"
+      transactions: [],
+      activeCategory: "All",
+      searchTerm: ""
     }
+    this.getTransactions = this.getTransactions.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
-  handleChange() {
-    //... your code here
+  componentDidMount(){
+    this.getTransactions()
   }
+
+  getTransactions(){
+    fetch("https://boiling-brook-94902.herokuapp.com/transactions")
+      .then( res => res.json() )
+      .then( transactions => this.setState({
+        transactions: transactions
+      })
+    )
+  }
+
+  handleChange(e) {
+    this.setState({
+      activeCategory: e.target.name
+    })
+  }
+
+  handleSearchChange(e){
+    this.setState({
+      searchTerm: e.target.value
+    })
+    console.log(this.state.searchTerm)
+  }
+
+
 
   render() {
     const displayedTransactions = this.state.transactions
@@ -54,10 +54,11 @@ class AccountContainer extends Component {
 
         <CategorySelector
           activeCategory={ this.state.activeCategory }
-          handleChange={ "...your code here" }
+          handleChange={ this.handleChange }
         />
+      <Search searchTerm={this.state.searchTerm} handleChange={this.handleSearchChange} />
 
-        <TransactionsList
+      <TransactionsList searchTerm={this.state.searchTerm} filterTerm={this.state.activeCategory}
           transactions={ displayedTransactions }
         />
 
