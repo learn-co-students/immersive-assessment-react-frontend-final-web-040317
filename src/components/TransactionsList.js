@@ -28,7 +28,7 @@ const TransactionsList = (props) => {
           </th>
         </tr>
 
-        { props.transactions.filter(x => x.category.match(props.activeCategory) || props.activeCategory === "All" ).map( transaction => (
+        { props.transactions.filter(x => (x.category.match(props.activeCategory) || props.activeCategory === "All") && (x.description.toLowerCase().includes(props.searchTerm.toLowerCase()))).map( transaction => (
           <Transaction key={transaction.id} transaction={transaction} />
           )
         )}

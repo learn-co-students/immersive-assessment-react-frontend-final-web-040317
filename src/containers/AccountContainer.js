@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TransactionsList from '../components/TransactionsList'
 import CategorySelector from '../components/CategorySelector'
+import Search from '../components/Search'
 import TransactionsAdapter from '../assets'
 
 
@@ -10,9 +11,11 @@ class AccountContainer extends Component {
 
     this.state = {
       transactions: [],
-      activeCategory: "All"
+      activeCategory: "All",
+      searchTerm: ""
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleCategoryChange = this.handleCategoryChange.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
   componentDidMount() {
@@ -22,8 +25,13 @@ class AccountContainer extends Component {
     })
   )}
 
-  handleChange(event) {
+  handleCategoryChange(event) {
     this.setState({ activeCategory: event.target.value })
+  }
+
+  handleSearchChange(event) {
+    event.preventDefault()
+    this.setState({ searchTerm: event.target.value })
   }
 
   render() {
@@ -32,14 +40,17 @@ class AccountContainer extends Component {
     return (
       <div className="ui grid container">
 
+        <Search searchTerm={ this.state.searchTerm} handleChange={ this.handleSearchChange }/>
+
         <CategorySelector
           activeCategory={ this.state.activeCategory }
-          handleChange={ this.handleChange }
+          handleChange={ this.handleCategoryChange }
         />
 
         <TransactionsList
           transactions={ displayedTransactions }
           activeCategory={ this.state.activeCategory }
+          searchTerm={ this.state.searchTerm }
         />
 
       </div>
