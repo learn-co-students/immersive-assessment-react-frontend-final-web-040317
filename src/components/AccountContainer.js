@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import CategorySelector from './CategorySelector'
 import { AccountAdapter } from '../adapters'
+import TotalsDisplay from './TotalsDisplay'
 
 
 class AccountContainer extends Component {
@@ -9,6 +10,7 @@ class AccountContainer extends Component {
     super()
     this.handleChange = this.handleChange.bind(this)
     this.filteredTransactions = this.filteredTransactions.bind(this)
+    this.transactionsTotal = this.transactionsTotal.bind(this)
 
     this.state = {
       transactions: [],
@@ -35,11 +37,21 @@ class AccountContainer extends Component {
     }
   }
 
+  transactionsTotal(transactions){
+    let temp = transactions.map(t => parseInt(t.amount))
+    return temp.reduce(function(t, val){
+      return t + val
+    }, 0)
+  }
+
   render() {
     const displayedTransactions = this.filteredTransactions(this.state.activeCategory, this.state.transactions)
+    console.log(this.transactionsTotal(displayedTransactions))
 
     return (
       <div className="ui grid container">
+
+        <TotalsDisplay total={this.transactionsTotal(displayedTransactions)}/>
 
         <CategorySelector
           activeCategory={ this.state.activeCategory }
