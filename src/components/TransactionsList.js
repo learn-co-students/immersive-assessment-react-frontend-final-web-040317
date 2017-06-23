@@ -30,6 +30,7 @@ const TransactionsList = (props) => {
         </tr>
 
         {props.transactions.filter( transaction => props.filterTerm === "All" || transaction.category === props.filterTerm)
+          .filter( transaction => transaction.description.toLowerCase().includes(props.searchTerm.toLowerCase()) )
           .map( transaction => <Transaction key={transaction.id} transaction={transaction}/>)}
 
       </tbody>

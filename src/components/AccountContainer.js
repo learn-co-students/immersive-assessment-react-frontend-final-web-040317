@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import CategorySelector from './CategorySelector'
+import Search from './Search'
 
 
 class AccountContainer extends Component {
@@ -9,10 +10,12 @@ class AccountContainer extends Component {
 
     this.state = {
       transactions: [],
-      activeCategory: "All"
+      activeCategory: "All",
+      searchTerm: ""
     }
     this.getTransactions = this.getTransactions.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
   componentDidMount(){
@@ -34,6 +37,13 @@ class AccountContainer extends Component {
     })
   }
 
+  handleSearchChange(e){
+    this.setState({
+      searchTerm: e.target.value
+    })
+    console.log(this.state.searchTerm)
+  }
+
 
 
   render() {
@@ -46,8 +56,9 @@ class AccountContainer extends Component {
           activeCategory={ this.state.activeCategory }
           handleChange={ this.handleChange }
         />
+      <Search searchTerm={this.state.searchTerm} handleChange={this.handleSearchChange} />
 
-      <TransactionsList filterTerm={this.state.activeCategory}
+      <TransactionsList searchTerm={this.state.searchTerm} filterTerm={this.state.activeCategory}
           transactions={ displayedTransactions }
         />
 
