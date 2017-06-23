@@ -10,7 +10,9 @@ const CategoryField = (props) => {
         <input
           type="radio"
           name="category"
+          value={category}
           checked={ checked }
+          onChange={props.onChange}
         />
         <label>{ category }</label>
 
