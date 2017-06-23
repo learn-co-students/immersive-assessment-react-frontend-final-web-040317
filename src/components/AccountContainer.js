@@ -30,13 +30,18 @@ class AccountContainer extends Component {
 
 
   render() {
+    var running_total = 0 
+    let total = [] 
     let displayedTransactions = this.state.transactions.filter( T => T.category === this.state.activeCategory)
-   
+    
+
     if(displayedTransactions.length === 0)
     {
       displayedTransactions = this.state.transactions
     }
-    
+
+    let middle_total = displayedTransactions.map( (trans) => running_total = running_total + trans.amount )
+    total.push(middle_total)
 
     return (
       <div className="ui grid container">
@@ -48,6 +53,7 @@ class AccountContainer extends Component {
 
         <TransactionsList
           transactions={ displayedTransactions  }
+          total={total}
         />
 
       </div>
