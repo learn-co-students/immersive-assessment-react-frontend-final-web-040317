@@ -13,7 +13,7 @@ class AccountContainer extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
-    // this.filterTransactions = this.filterTransactions.bind(this)
+
   }
 
   handleChange(event) {
@@ -34,7 +34,7 @@ class AccountContainer extends Component {
     })
   }
 
-  render() {
+  filterList(){
     let filtered;
     if (this.state.activeCategory === 'All'){
       filtered = this.state.transactions
@@ -45,6 +45,11 @@ class AccountContainer extends Component {
         }
       })
     }
+    return filtered
+  }
+
+  render() {
+    const filtered = this.filterList()
     const displayedTransactions = filtered
 
     return (
